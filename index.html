@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="What actually happens to your body and performance on less than 6 hours of sleep — and the exact stack Zac Sarfati uses every night as an NRL athlete." />
+  <title>If Sleep Was a Drug, It'd Be Banned — Zac Sarfati</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ─── Tokens ───────────────────────────────────────────────────────── */
+    :root {
+      --black: #0a0a0a;
+      --black-2: #141414;
+      --black-3: #1c1c1c;
+      --orange: #e8521a;
+      --orange-light: #f07042;
+      --orange-dark: #b9410f;
+      --cream: #f5f2ec;
+      --cream-2: #ede8dd;
+      --text-on-dark: #f5f2ec;
+      --muted-on-dark: #a8a3a0;
+      --muted-on-light: #6b6764;
+      --border-on-dark: rgba(245, 242, 236, 0.12);
+      --border-on-light: rgba(10, 10, 10, 0.10);
+    }
+
+    /* ─── Reset ────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--black);
+      color: var(--text-on-dark);
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { font-family: inherit; cursor: pointer; }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    .h1, .h2, .h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      line-height: 0.95;
+      margin: 0;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--orange);
+      padding: 7px 12px;
+      border: 1px solid var(--orange);
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 18px 30px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+      box-shadow: 0 14px 30px rgba(232, 82, 26, 0.28);
+    }
+    .btn-primary:hover { background: var(--orange-light); transform: translateY(-2px); box-shadow: 0 18px 36px rgba(232, 82, 26, 0.34); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary .arrow { display: inline-block; transition: transform 0.18s ease; }
+    .btn-primary:hover .arrow { transform: translateX(4px); }
+
+    /* ─── HERO ─────────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 60px 0 80px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 80% -10%, rgba(232, 82, 26, 0.18) 0%, rgba(232, 82, 26, 0) 60%),
+        radial-gradient(ellipse at 0% 110%, rgba(232, 82, 26, 0.10) 0%, rgba(232, 82, 26, 0) 55%),
+        var(--black);
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border-on-dark) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border-on-dark) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.35;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+    }
+    .hero .container { position: relative; }
+    .hero-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 11vw, 120px);
+      line-height: 0.92;
+      letter-spacing: 0.005em;
+      margin: 0 0 18px;
+      color: var(--cream);
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .hero-sub {
+      max-width: 640px;
+      font-size: clamp(16px, 2.2vw, 19px);
+      color: var(--muted-on-dark);
+      margin: 0 0 36px;
+    }
+    .hero-sub strong { color: var(--cream); font-weight: 600; }
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 18px;
+    }
+    .hero-foot {
+      margin-top: 40px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted-on-dark);
+    }
+    .hero-foot .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); display: inline-block; margin-right: 8px; vertical-align: middle; }
+
+    @media (min-width: 720px) {
+      .hero { padding: 90px 0 110px; }
+    }
+
+    /* ─── STATS STRIP ──────────────────────────────────────────────────── */
+    .stats {
+      padding: 30px 0 60px;
+      background: var(--black);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .stat-card {
+      background: var(--black-2);
+      border: 1px solid var(--border-on-dark);
+      border-radius: 18px;
+      padding: 28px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: var(--orange);
+    }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      line-height: 1;
+      color: var(--orange);
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
+    .stat-text {
+      font-size: 15px;
+      color: var(--cream);
+      font-weight: 500;
+      line-height: 1.45;
+    }
+    @media (min-width: 720px) {
+      .stats { padding: 40px 0 80px; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .stat-num { font-size: 68px; }
+    }
+
+    /* ─── BODY ON LESS THAN 6 HOURS ────────────────────────────────────── */
+    .body-section {
+      padding: 80px 0 100px;
+      background: var(--black);
+      border-top: 1px solid var(--border-on-dark);
+    }
+    .section-header { margin-bottom: 48px; max-width: 720px; }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(38px, 7vw, 64px);
+      line-height: 0.95;
+      color: var(--cream);
+      margin: 0 0 14px;
+    }
+    .section-title em { color: var(--orange); font-style: normal; }
+    .section-lede {
+      color: var(--muted-on-dark);
+      font-size: 16px;
+      max-width: 580px;
+      margin: 0;
+    }
+
+    .ol-symptoms {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr;
+      counter-reset: symptom;
+    }
+    .ol-symptoms li {
+      counter-increment: symptom;
+      background: var(--black-2);
+      border: 1px solid var(--border-on-dark);
+      border-radius: 14px;
+      padding: 22px 22px 22px 78px;
+      position: relative;
+      font-size: 15.5px;
+      line-height: 1.55;
+      color: var(--cream);
+    }
+    .ol-symptoms li::before {
+      content: counter(symptom, decimal-leading-zero);
+      position: absolute;
+      left: 22px;
+      top: 22px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      line-height: 1;
+      color: var(--orange);
+      letter-spacing: 0.04em;
+    }
+    .ol-symptoms li strong { color: #fff; font-weight: 700; }
+    @media (min-width: 800px) {
+      .ol-symptoms { grid-template-columns: 1fr 1fr; gap: 16px; }
+    }
+
+    /* ─── ZAC'S PROTOCOL (CREAM) ───────────────────────────────────────── */
+    .protocol {
+      background: var(--cream);
+      color: var(--black);
+      padding: 90px 0 100px;
+    }
+    .protocol .section-title { color: var(--black); }
+    .protocol .section-title em { color: var(--orange); }
+    .protocol .section-lede { color: var(--muted-on-light); }
+    .protocol-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .pl-item {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px 22px;
+      border: 1px solid var(--border-on-light);
+      position: relative;
+    }
+    .pl-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--orange);
+      padding: 4px 9px;
+      border: 1px solid var(--orange);
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+    .pl-body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #1f1f1f;
+    }
+    .pl-body strong { color: var(--black); }
+    @media (min-width: 800px) {
+      .protocol-list { grid-template-columns: 1fr 1fr; gap: 16px; }
+    }
+
+    /* ─── PRODUCT STACK ────────────────────────────────────────────────── */
+    .stack {
+      background: var(--black);
+      padding: 90px 0 100px;
+      border-top: 1px solid var(--border-on-dark);
+    }
+    .stack-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .product-card {
+      background: var(--black-2);
+      border: 1px solid var(--border-on-dark);
+      border-radius: 18px;
+      padding: 26px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      position: relative;
+    }
+    .product-card:hover {
+      border-color: var(--orange);
+      background: var(--black-3);
+      transform: translateY(-2px);
+    }
+    .product-card::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 24px; bottom: 24px;
+      width: 3px;
+      background: var(--orange);
+      border-radius: 0 3px 3px 0;
+    }
+    .product-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      color: var(--cream);
+      line-height: 1;
+    }
+    .product-desc {
+      font-size: 14.5px;
+      line-height: 1.5;
+      color: var(--muted-on-dark);
+      flex: 1;
+    }
+    .product-link {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 16px;
+      background: transparent;
+      color: var(--orange);
+      border: 1.5px solid var(--orange);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.18s ease;
+    }
+    .product-link:hover {
+      background: var(--orange);
+      color: #fff;
+    }
+    @media (min-width: 720px) {
+      .stack-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    }
+    @media (min-width: 1000px) {
+      .stack-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    /* ─── EMAIL CAPTURE (ORANGE) ───────────────────────────────────────── */
+    .capture {
+      background: var(--orange);
+      color: #fff;
+      padding: 90px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .capture::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.5;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
+      -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
+    }
+    .capture .container { position: relative; max-width: 720px; }
+    .capture-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 8vw, 72px);
+      line-height: 0.95;
+      letter-spacing: 0.005em;
+      color: #fff;
+      margin: 0 0 16px;
+    }
+    .capture-sub {
+      font-size: 17px;
+      max-width: 520px;
+      color: rgba(255, 255, 255, 0.92);
+      margin: 0 0 32px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.82);
+    }
+    .form-input {
+      padding: 14px 16px;
+      border: none;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--black);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      outline: none;
+      transition: box-shadow 0.18s ease;
+    }
+    .form-input:focus {
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.18);
+    }
+    .form-submit {
+      margin-top: 6px;
+      padding: 17px 24px;
+      background: var(--black);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .form-submit:hover { background: #1f1f1f; transform: translateY(-1px); }
+    .form-submit:disabled { background: #444; cursor: progress; transform: none; }
+    .form-foot {
+      margin-top: 14px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .form-success {
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 14px;
+      padding: 22px 22px;
+      color: #fff;
+      font-size: 16px;
+      line-height: 1.5;
+      display: none;
+    }
+    .form-success.show { display: block; }
+    .form-error {
+      margin-top: 12px;
+      color: #ffe1d3;
+      font-size: 14px;
+      display: none;
+    }
+    .form-error.show { display: block; }
+
+    @media (min-width: 600px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .form-grid .submit-cell { grid-column: 1 / -1; }
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      color: var(--muted-on-dark);
+      padding: 36px 0 44px;
+      border-top: 1px solid var(--border-on-dark);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-align: center;
+    }
+    footer a { color: var(--orange); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── Honeypot ─────────────────────────────────────────────────────── */
+    .hp { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+
+    /* ─── Reduce motion ────────────────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     HERO
+═════════════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">Zac Sarfati · NRL Athlete · Sydney Roosters</span>
+    <h1 class="hero-headline">If sleep was<br/>a drug, it'd be<br/><em>banned.</em></h1>
+    <p class="hero-sub">
+      What actually happens to your body and performance on <strong>less than 6 hours</strong>.
+      And the exact stack I use every night as an NRL athlete.
+    </p>
+    <div class="hero-cta-row">
+      <a href="#getguide" class="btn-primary">
+        <span>Get the Free Sleep Guide</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <div class="hero-foot">
+      <span><span class="dot"></span>The science</span>
+      <span><span class="dot"></span>The protocol</span>
+      <span><span class="dot"></span>The stack</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     STATS STRIP
+═════════════════════════════════════════════════════════════════════ -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">40%</div>
+        <div class="stat-text">Drop in reaction time after one bad night.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">24%</div>
+        <div class="stat-text">Reduction in sprint speed after 5 nights of less than 6 hours.</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3×</div>
+        <div class="stat-text">Higher injury risk on poor sleep.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     BODY ON < 6 HOURS
+═════════════════════════════════════════════════════════════════════ -->
+<section class="body-section">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-title">Your body on<br/><em>less than 6 hours.</em></h2>
+      <p class="section-lede">You feel "fine." You're not. Here's what's actually happening under the hood.</p>
+    </header>
+
+    <ol class="ol-symptoms">
+      <li><strong>Reaction time drops</strong> — you feel fine but your brain is slower than a drunk driver.</li>
+      <li><strong>Testosterone drops 10–15%</strong> after just one week of poor sleep.</li>
+      <li><strong>Cortisol spikes</strong> — you're in survival mode all day, muscle breaks down.</li>
+      <li><strong>Decision-making tanks</strong> — the part of your brain that plans ahead basically switches off.</li>
+      <li><strong>Recovery stalls</strong> — HGH is released during deep sleep. No deep sleep, no repair.</li>
+      <li><strong>Appetite hormones go haywire</strong> — ghrelin spikes, you crave junk all day.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     ZAC'S PROTOCOL
+═════════════════════════════════════════════════════════════════════ -->
+<section class="protocol">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-title">How I actually<br/><em>prioritise sleep.</em></h2>
+      <p class="section-lede">This is the stack and the rituals. Nothing fancy — just stuff that compounds when you do it every day.</p>
+    </header>
+
+    <ul class="protocol-list">
+      <li class="pl-item">
+        <span class="pl-tag">Morning</span>
+        <p class="pl-body">Get outside within <strong>30–60 minutes of waking</strong>. Even 30 seconds of direct sunlight resets your circadian rhythm and tells your body it's daytime. <strong>No sunglasses.</strong></p>
+      </li>
+      <li class="pl-item">
+        <span class="pl-tag">Afternoon</span>
+        <p class="pl-body">Get sunlight in your eyes again in the <strong>late afternoon</strong> — this signals to your body that the day is ending and primes melatonin production for later.</p>
+      </li>
+      <li class="pl-item">
+        <span class="pl-tag">Evening</span>
+        <p class="pl-body">Dim or turn off all bright lights as early as possible before bed. <strong>Overhead lights are the enemy</strong> — switch to lamps and warm bulbs.</p>
+      </li>
+      <li class="pl-item">
+        <span class="pl-tag">Bedtime</span>
+        <p class="pl-body">Mouth tape on (forces nasal breathing — deeper sleep, better oxygen), white noise, fan running for airflow, room as cold as I can get it.</p>
+      </li>
+      <li class="pl-item">
+        <span class="pl-tag">Tech</span>
+        <p class="pl-body">The <strong>Eight Sleep pod</strong> tracks everything and keeps the bed at the exact temperature for deep sleep. It's the single biggest upgrade I've made.</p>
+      </li>
+      <li class="pl-item">
+        <span class="pl-tag">Supplements</span>
+        <p class="pl-body"><strong>Magnesium before bed</strong> — helps the nervous system wind down and improves sleep quality. I take a triple form (citrate / glycinate / aspartate).</p>
+      </li>
+      <li class="pl-item">
+        <span class="pl-tag">Heat</span>
+        <p class="pl-body"><strong>Sauna a few hours before bed</strong> — the drop in body temp afterwards triggers deep sleep faster. One of the most underrated tools.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     THE STACK
+═════════════════════════════════════════════════════════════════════ -->
+<section class="stack">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-title">The <em>stack.</em></h2>
+      <p class="section-lede">Everything I actually use. No fluff, no sponsored picks.</p>
+    </header>
+
+    <div class="stack-grid">
+      <article class="product-card">
+        <div class="product-name">Manta Sleep Mask Pro</div>
+        <p class="product-desc">Blocks 100% of light. The best sleep mask I've used.</p>
+        <a class="product-link" href="https://mantasleep.com.au/products/manta-sleep-mask-pro" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-name">Eight Sleep Pod Cover</div>
+        <p class="product-desc">Temperature-controlled mattress cover. Game changer for deep sleep.</p>
+        <a class="product-link" href="https://www.eightsleep.com/au/" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-name">Mouth Tape</div>
+        <p class="product-desc">Forces nasal breathing. Better oxygen, better sleep, less snoring.</p>
+        <a class="product-link" href="https://www.aliexpress.com/item/1005008135304014.html" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-name">Devanti Air Purifier</div>
+        <p class="product-desc">Clean air in the bedroom. HEPA filtered.</p>
+        <a class="product-link" href="https://www.bunnings.com.au/devanti-air-purifier-4-stage-hepa-filter_p0762424" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-name">Devanti Oscillating Fan</div>
+        <p class="product-desc">Airflow + white noise. I sleep with this on every night.</p>
+        <a class="product-link" href="https://www.amazon.com.au/Devanti-Electric-Oscillating-Speeds-Cooling/dp/B0DBH57CBD" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-name">Pillar Triple Magnesium</div>
+        <p class="product-desc">Best magnesium I've found. Take it 30 mins before bed.</p>
+        <a class="product-link" href="https://www.paceathletic.com/products/pillar-performance-triple-magnesium" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-name">True Protein Creatine</div>
+        <p class="product-desc">Creatine doesn't just help in the gym — supports cognitive recovery too.</p>
+        <a class="product-link" href="https://www.trueprotein.com.au/products/creatine-mono" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-name">Sunrise Alarm Clock</div>
+        <p class="product-desc">Wakes you up with light instead of a blaring alarm. So much better.</p>
+        <a class="product-link" href="https://www.amazon.com.au/Sunrise-Simulation-Function-Colorful-Atmosphere/dp/B0CL6NNMTF" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+
+      <article class="product-card">
+        <div class="product-name">WHOOP</div>
+        <p class="product-desc">Tracks sleep stages, HRV and recovery every single night.</p>
+        <a class="product-link" href="https://www.whoop.com/au/en/" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     EMAIL CAPTURE
+═════════════════════════════════════════════════════════════════════ -->
+<section class="capture" id="getguide">
+  <div class="container">
+    <h2 class="capture-title">Get the full<br/>sleep guide.</h2>
+    <p class="capture-sub">
+      Drop your email and I'll send you the complete breakdown — the stack, the protocol, and the science. Free.
+    </p>
+
+    <form
+      id="sleepGuideForm"
+      name="sleep-guide"
+      method="POST"
+      action="/?submitted=1"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      novalidate
+    >
+      <input type="hidden" name="form-name" value="sleep-guide" />
+      <p class="hp"><label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+      <div class="form-grid">
+        <div class="form-field">
+          <label class="form-label" for="firstName">First name</label>
+          <input class="form-input" id="firstName" name="first_name" type="text" autocomplete="given-name" required maxlength="80" />
+        </div>
+        <div class="form-field">
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" id="email" name="email" type="email" autocomplete="email" required maxlength="200" />
+        </div>
+        <div class="submit-cell">
+          <button type="submit" class="form-submit" id="formSubmitBtn">
+            <span>Send Me the Guide</span>
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-error" id="formError">Something went wrong. Please try again.</div>
+      <p class="form-foot">No spam. Unsubscribe any time.</p>
+    </form>
+
+    <div class="form-success" id="formSuccess" role="status" aria-live="polite">
+      <strong>You're in.</strong> Check your inbox in the next minute — the guide is on its way. 🛌
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FOOTER
+═════════════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    © 2025 Zac Sarfati · <a href="https://instagram.com/zacsarfati" target="_blank" rel="noopener">@zacsarfati</a> · <a href="https://zacsarfati.com" target="_blank" rel="noopener">zacsarfati.com</a>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     SCRIPT — Form submit (keeps the user on-page after Netlify ack)
+═════════════════════════════════════════════════════════════════════ -->
+<script>
+  (function () {
+    const form    = document.getElementById('sleepGuideForm');
+    const btn     = document.getElementById('formSubmitBtn');
+    const success = document.getElementById('formSuccess');
+    const error   = document.getElementById('formError');
+
+    if (!form) return;
+
+    function encode(data) {
+      return Object.keys(data)
+        .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+        .join('&');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      error.classList.remove('show');
+
+      const fd = new FormData(form);
+      const payload = {};
+      fd.forEach((v, k) => { payload[k] = v; });
+
+      btn.disabled = true;
+      const original = btn.innerHTML;
+      btn.innerHTML = '<span>Sending…</span>';
+
+      try {
+        const resp = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode(payload),
+        });
+        if (!resp.ok) throw new Error('Network error: ' + resp.status);
+        form.style.display = 'none';
+        success.classList.add('show');
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch (err) {
+        console.error('[sleep-guide form] submit failed', err);
+        error.classList.add('show');
+        btn.disabled = false;
+        btn.innerHTML = original;
+      }
+    });
+
+    // Show success state if user lands on /?submitted=1 (no-JS fallback path)
+    if (new URLSearchParams(window.location.search).get('submitted') === '1') {
+      form.style.display = 'none';
+      success.classList.add('show');
+    }
+  })();
+</script>
+</body>
+</html>
