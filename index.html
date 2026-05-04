@@ -6,6 +6,18 @@
   <meta name="description" content="What actually happens to your body and performance on less than 6 hours of sleep — and the exact stack Zac Sarfati uses every night as an NRL athlete." />
   <title>If Sleep Was a Drug, It'd Be Banned — Zac Sarfati</title>
 
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#e8521a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Sleep Guide" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -33,7 +45,10 @@
 
     /* ─── Reset ────────────────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
     body {
       margin: 0;
       background: var(--black);
@@ -43,10 +58,12 @@
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden; /* belt + braces against rogue x-overflow on small screens */
     }
     img { max-width: 100%; display: block; }
     a { color: inherit; }
     button { font-family: inherit; cursor: pointer; }
+    input, button, select, textarea { font-size: 16px; } /* avoid iOS zoom on focus */
 
     .container {
       width: 100%;
@@ -82,6 +99,7 @@
       justify-content: center;
       gap: 10px;
       padding: 18px 30px;
+      min-height: 56px;
       background: var(--orange);
       color: #fff;
       border: none;
@@ -103,7 +121,7 @@
     /* ─── HERO ─────────────────────────────────────────────────────────── */
     .hero {
       position: relative;
-      padding: 60px 0 80px;
+      padding: 60px 0 60px;
       overflow: hidden;
       background:
         radial-gradient(ellipse at 80% -10%, rgba(232, 82, 26, 0.18) 0%, rgba(232, 82, 26, 0) 60%),
@@ -163,12 +181,211 @@
     .hero-foot .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); display: inline-block; margin-right: 8px; vertical-align: middle; }
 
     @media (min-width: 720px) {
-      .hero { padding: 90px 0 110px; }
+      .hero { padding: 90px 0 90px; }
     }
+
+    /* ─── EMAIL GATE (visible until unlocked) ──────────────────────────── */
+    .gate {
+      position: relative;
+      padding: 0 0 80px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(232, 82, 26, 0.10) 0%, rgba(232, 82, 26, 0) 60%),
+        var(--black);
+    }
+    .gate-card {
+      max-width: 540px;
+      margin: 0 auto;
+      background: var(--black-2);
+      border: 1px solid var(--border-on-dark);
+      border-radius: 22px;
+      padding: 36px 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    }
+    .gate-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--orange);
+      padding: 5px 10px;
+      border: 1px solid var(--orange);
+      border-radius: 100px;
+      margin-bottom: 18px;
+    }
+    .gate-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(32px, 7.5vw, 50px);
+      line-height: 0.95;
+      letter-spacing: 0.005em;
+      color: var(--cream);
+      margin: 0 0 12px;
+    }
+    .gate-title em { color: var(--orange); font-style: normal; }
+    .gate-sub {
+      font-size: 16px;
+      color: var(--muted-on-dark);
+      line-height: 1.55;
+      margin: 0 0 24px;
+    }
+    .gate-form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .gate-field { display: flex; flex-direction: column; gap: 6px; }
+    .gate-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted-on-dark);
+    }
+    .gate-input {
+      padding: 14px 16px;
+      border: 1.5px solid var(--border-on-dark);
+      border-radius: 12px;
+      background: var(--black-3);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+      width: 100%;
+      min-height: 48px;
+    }
+    .gate-input::placeholder { color: rgba(245,242,236,0.36); }
+    .gate-input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px rgba(232,82,26,0.2); }
+    .gate-submit {
+      margin-top: 6px;
+      padding: 16px 20px;
+      min-height: 56px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      box-shadow: 0 14px 30px rgba(232, 82, 26, 0.28);
+    }
+    .gate-submit:hover { background: var(--orange-light); transform: translateY(-1px); }
+    .gate-submit:disabled { background: #6e3517; cursor: progress; transform: none; box-shadow: none; }
+    .gate-foot {
+      margin-top: 14px;
+      font-size: 12.5px;
+      color: var(--muted-on-dark);
+      letter-spacing: 0.02em;
+    }
+    .gate-error {
+      margin-top: 10px;
+      color: #ffa18a;
+      font-size: 13.5px;
+      display: none;
+    }
+    .gate-error.show { display: block; }
+    .gate-success {
+      max-width: 540px;
+      margin: 0 auto;
+      background: var(--black-2);
+      border: 1px solid var(--orange);
+      border-radius: 22px;
+      padding: 32px 28px;
+      text-align: center;
+      display: none;
+    }
+    .gate-success.show { display: block; }
+    .gate-success .gs-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      letter-spacing: 0.02em;
+      color: var(--orange);
+      line-height: 1;
+      margin: 0 0 10px;
+    }
+    .gate-success .gs-body {
+      color: var(--cream);
+      font-size: 16px;
+      margin: 0 0 8px;
+    }
+    .gate-success .gs-arrow { color: var(--muted-on-dark); font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; }
+
+    @media (min-width: 600px) {
+      .gate-card { padding: 44px 38px; }
+      .gate-form-grid { grid-template-columns: 1fr 1fr; }
+      .gate-form-grid .submit-cell { grid-column: 1 / -1; }
+    }
+
+    /* ─── GATED CONTENT (revealed after submit) ────────────────────────── */
+    #gatedContent {
+      display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    #gatedContent.revealed { opacity: 1; transform: none; }
+
+    /* Sticky save bar */
+    .save-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10, 10, 10, 0.92);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      backdrop-filter: saturate(140%) blur(10px);
+      border-bottom: 1px solid var(--border-on-dark);
+      padding: 12px 0;
+    }
+    .save-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .save-bar-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted-on-dark);
+    }
+    .save-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 18px;
+      min-height: 48px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.18s ease;
+      white-space: nowrap;
+    }
+    .save-btn:hover { background: var(--orange-light); transform: translateY(-1px); }
+    .save-btn:active { transform: translateY(0); }
 
     /* ─── STATS STRIP ──────────────────────────────────────────────────── */
     .stats {
-      padding: 30px 0 60px;
+      padding: 50px 0 60px;
       background: var(--black);
     }
     .stats-grid {
@@ -200,24 +417,19 @@
       margin-bottom: 8px;
     }
     .stat-text {
-      font-size: 15px;
+      font-size: 16px;
       color: var(--cream);
       font-weight: 500;
       line-height: 1.45;
     }
     @media (min-width: 720px) {
-      .stats { padding: 40px 0 80px; }
+      .stats { padding: 60px 0 80px; }
       .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
       .stat-num { font-size: 68px; }
     }
 
-    /* ─── BODY ON LESS THAN 6 HOURS ────────────────────────────────────── */
-    .body-section {
-      padding: 80px 0 100px;
-      background: var(--black);
-      border-top: 1px solid var(--border-on-dark);
-    }
-    .section-header { margin-bottom: 48px; max-width: 720px; }
+    /* ─── SECTION HEADERS (shared) ─────────────────────────────────────── */
+    .section-header { margin-bottom: 36px; max-width: 720px; }
     .section-title {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(38px, 7vw, 64px);
@@ -231,6 +443,13 @@
       font-size: 16px;
       max-width: 580px;
       margin: 0;
+    }
+
+    /* ─── BODY ON < 6 HOURS ────────────────────────────────────────────── */
+    .body-section {
+      padding: 70px 0 80px;
+      background: var(--black);
+      border-top: 1px solid var(--border-on-dark);
     }
 
     .ol-symptoms {
@@ -249,7 +468,7 @@
       border-radius: 14px;
       padding: 22px 22px 22px 78px;
       position: relative;
-      font-size: 15.5px;
+      font-size: 16px;
       line-height: 1.55;
       color: var(--cream);
     }
@@ -273,7 +492,7 @@
     .protocol {
       background: var(--cream);
       color: var(--black);
-      padding: 90px 0 100px;
+      padding: 80px 0 90px;
     }
     .protocol .section-title { color: var(--black); }
     .protocol .section-title em { color: var(--orange); }
@@ -306,9 +525,10 @@
       margin-bottom: 10px;
     }
     .pl-body {
-      font-size: 15px;
+      font-size: 16px;
       line-height: 1.6;
       color: #1f1f1f;
+      margin: 0;
     }
     .pl-body strong { color: var(--black); }
     @media (min-width: 800px) {
@@ -318,7 +538,7 @@
     /* ─── PRODUCT STACK ────────────────────────────────────────────────── */
     .stack {
       background: var(--black);
-      padding: 90px 0 100px;
+      padding: 80px 0 90px;
       border-top: 1px solid var(--border-on-dark);
     }
     .stack-grid {
@@ -358,17 +578,19 @@
       line-height: 1;
     }
     .product-desc {
-      font-size: 14.5px;
+      font-size: 16px;
       line-height: 1.5;
       color: var(--muted-on-dark);
       flex: 1;
+      margin: 0;
     }
     .product-link {
       align-self: flex-start;
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      padding: 10px 16px;
+      padding: 12px 18px;
+      min-height: 48px;
       background: transparent;
       color: var(--orange);
       border: 1.5px solid var(--orange);
@@ -391,123 +613,6 @@
       .stack-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
-    /* ─── EMAIL CAPTURE (ORANGE) ───────────────────────────────────────── */
-    .capture {
-      background: var(--orange);
-      color: #fff;
-      padding: 90px 0 100px;
-      position: relative;
-      overflow: hidden;
-    }
-    .capture::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.10) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.10) 1px, transparent 1px);
-      background-size: 50px 50px;
-      opacity: 0.5;
-      pointer-events: none;
-      mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
-      -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 95%);
-    }
-    .capture .container { position: relative; max-width: 720px; }
-    .capture-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(40px, 8vw, 72px);
-      line-height: 0.95;
-      letter-spacing: 0.005em;
-      color: #fff;
-      margin: 0 0 16px;
-    }
-    .capture-sub {
-      font-size: 17px;
-      max-width: 520px;
-      color: rgba(255, 255, 255, 0.92);
-      margin: 0 0 32px;
-    }
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .form-field {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .form-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.82);
-    }
-    .form-input {
-      padding: 14px 16px;
-      border: none;
-      border-radius: 12px;
-      background: #fff;
-      color: var(--black);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      outline: none;
-      transition: box-shadow 0.18s ease;
-    }
-    .form-input:focus {
-      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.18);
-    }
-    .form-submit {
-      margin-top: 6px;
-      padding: 17px 24px;
-      background: var(--black);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.18s ease, transform 0.18s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .form-submit:hover { background: #1f1f1f; transform: translateY(-1px); }
-    .form-submit:disabled { background: #444; cursor: progress; transform: none; }
-    .form-foot {
-      margin-top: 14px;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.85);
-    }
-    .form-success {
-      background: rgba(255,255,255,0.16);
-      border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 14px;
-      padding: 22px 22px;
-      color: #fff;
-      font-size: 16px;
-      line-height: 1.5;
-      display: none;
-    }
-    .form-success.show { display: block; }
-    .form-error {
-      margin-top: 12px;
-      color: #ffe1d3;
-      font-size: 14px;
-      display: none;
-    }
-    .form-error.show { display: block; }
-
-    @media (min-width: 600px) {
-      .form-grid { grid-template-columns: 1fr 1fr; }
-      .form-grid .submit-cell { grid-column: 1 / -1; }
-    }
-
     /* ─── FOOTER ───────────────────────────────────────────────────────── */
     footer {
       background: var(--black);
@@ -528,6 +633,42 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition: none !important; }
+    }
+
+    /* ─── PRINT STYLES (clean PDF for "Save to iPhone") ────────────────── */
+    @media print {
+      @page { margin: 16mm 14mm; }
+      html, body {
+        background: #fff !important;
+        color: #000 !important;
+      }
+      body { font-size: 12pt; line-height: 1.45; }
+      /* Hide UI chrome that doesn't belong in a saved guide */
+      .hero, .gate, .save-bar, footer, .form-error, .gate-error, .gate-success { display: none !important; }
+      /* Reveal gated content unconditionally for print (even if user printed without unlocking) */
+      #gatedContent { display: block !important; opacity: 1 !important; transform: none !important; }
+      .container { max-width: none; padding: 0; }
+      section { background: #fff !important; border: none !important; padding: 0 0 14pt !important; page-break-before: always; }
+      section:first-of-type, .stats { page-break-before: auto; }
+      .section-header { margin-bottom: 14pt; }
+      .section-title, .section-title em { color: #000 !important; font-size: 24pt; }
+      .section-lede { color: #444 !important; }
+      .stat-card, .ol-symptoms li, .pl-item, .product-card {
+        background: #fff !important; border: 1px solid #999 !important;
+        color: #000 !important; box-shadow: none !important;
+        page-break-inside: avoid;
+      }
+      .stat-num, .product-name, .pl-tag, .ol-symptoms li::before {
+        color: #000 !important;
+      }
+      .pl-tag, .product-link {
+        border-color: #000 !important; color: #000 !important;
+      }
+      .stat-card::before, .product-card::after { background: #000 !important; }
+      .stat-text, .product-desc, .pl-body, .ol-symptoms li { color: #000 !important; }
+      a, a:visited { color: #000 !important; text-decoration: underline; }
+      .product-link::after { content: " " attr(href); font-size: 9pt; color: #444; letter-spacing: 0; text-transform: none; font-weight: 400; }
+      .product-link span { display: none; }
     }
   </style>
 </head>
@@ -559,207 +700,223 @@
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════
-     STATS STRIP
+     EMAIL GATE  (visible until unlocked)
 ═════════════════════════════════════════════════════════════════════ -->
-<section class="stats">
+<section class="gate" id="getguide">
   <div class="container">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-num">40%</div>
-        <div class="stat-text">Drop in reaction time after one bad night.</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">24%</div>
-        <div class="stat-text">Reduction in sprint speed after 5 nights of less than 6 hours.</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">3×</div>
-        <div class="stat-text">Higher injury risk on poor sleep.</div>
-      </div>
+    <div class="gate-card" id="gateCard">
+      <span class="gate-tag">Free · Instant access</span>
+      <h2 class="gate-title">Drop your email,<br/>unlock the full <em>guide.</em></h2>
+      <p class="gate-sub">
+        The science, the protocol, and the complete stack — every product I actually use.
+        No spam. Unsubscribe any time.
+      </p>
+
+      <form
+        id="sleepGuideForm"
+        name="sleep-guide"
+        method="POST"
+        action="/?submitted=1"
+        data-netlify="true"
+        data-netlify-honeypot="bot-field"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="sleep-guide" />
+        <p class="hp"><label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+        <div class="gate-form-grid">
+          <div class="gate-field">
+            <label class="gate-label" for="firstName">First name</label>
+            <input class="gate-input" id="firstName" name="first_name" type="text" autocomplete="given-name" placeholder="Jordan" required maxlength="80" />
+          </div>
+          <div class="gate-field">
+            <label class="gate-label" for="email">Email</label>
+            <input class="gate-input" id="email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required maxlength="200" />
+          </div>
+          <div class="submit-cell">
+            <button type="submit" class="gate-submit" id="gateSubmitBtn">
+              <span>Send Me the Guide</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="gate-foot">No spam. Unsubscribe any time.</p>
+        <div class="gate-error" id="gateError">Something went wrong. Please try again.</div>
+      </form>
+    </div>
+
+    <!-- Success state (shown after submit) -->
+    <div class="gate-success" id="gateSuccess" role="status" aria-live="polite">
+      <div class="gs-title">You're in.</div>
+      <div class="gs-body">Scroll down for the full guide.</div>
+      <div class="gs-arrow">↓ ↓ ↓</div>
     </div>
   </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════
-     BODY ON < 6 HOURS
+     GATED CONTENT  (revealed after email submit OR localStorage flag)
 ═════════════════════════════════════════════════════════════════════ -->
-<section class="body-section">
-  <div class="container">
-    <header class="section-header">
-      <h2 class="section-title">Your body on<br/><em>less than 6 hours.</em></h2>
-      <p class="section-lede">You feel "fine." You're not. Here's what's actually happening under the hood.</p>
-    </header>
+<div id="gatedContent">
 
-    <ol class="ol-symptoms">
-      <li><strong>Reaction time drops</strong> — you feel fine but your brain is slower than a drunk driver.</li>
-      <li><strong>Testosterone drops 10–15%</strong> after just one week of poor sleep.</li>
-      <li><strong>Cortisol spikes</strong> — you're in survival mode all day, muscle breaks down.</li>
-      <li><strong>Decision-making tanks</strong> — the part of your brain that plans ahead basically switches off.</li>
-      <li><strong>Recovery stalls</strong> — HGH is released during deep sleep. No deep sleep, no repair.</li>
-      <li><strong>Appetite hormones go haywire</strong> — ghrelin spikes, you crave junk all day.</li>
-    </ol>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════════════════════════
-     ZAC'S PROTOCOL
-═════════════════════════════════════════════════════════════════════ -->
-<section class="protocol">
-  <div class="container">
-    <header class="section-header">
-      <h2 class="section-title">How I actually<br/><em>prioritise sleep.</em></h2>
-      <p class="section-lede">This is the stack and the rituals. Nothing fancy — just stuff that compounds when you do it every day.</p>
-    </header>
-
-    <ul class="protocol-list">
-      <li class="pl-item">
-        <span class="pl-tag">Morning</span>
-        <p class="pl-body">Get outside within <strong>30–60 minutes of waking</strong>. Even 30 seconds of direct sunlight resets your circadian rhythm and tells your body it's daytime. <strong>No sunglasses.</strong></p>
-      </li>
-      <li class="pl-item">
-        <span class="pl-tag">Afternoon</span>
-        <p class="pl-body">Get sunlight in your eyes again in the <strong>late afternoon</strong> — this signals to your body that the day is ending and primes melatonin production for later.</p>
-      </li>
-      <li class="pl-item">
-        <span class="pl-tag">Evening</span>
-        <p class="pl-body">Dim or turn off all bright lights as early as possible before bed. <strong>Overhead lights are the enemy</strong> — switch to lamps and warm bulbs.</p>
-      </li>
-      <li class="pl-item">
-        <span class="pl-tag">Bedtime</span>
-        <p class="pl-body">Mouth tape on (forces nasal breathing — deeper sleep, better oxygen), white noise, fan running for airflow, room as cold as I can get it.</p>
-      </li>
-      <li class="pl-item">
-        <span class="pl-tag">Tech</span>
-        <p class="pl-body">The <strong>Eight Sleep pod</strong> tracks everything and keeps the bed at the exact temperature for deep sleep. It's the single biggest upgrade I've made.</p>
-      </li>
-      <li class="pl-item">
-        <span class="pl-tag">Supplements</span>
-        <p class="pl-body"><strong>Magnesium before bed</strong> — helps the nervous system wind down and improves sleep quality. I take a triple form (citrate / glycinate / aspartate).</p>
-      </li>
-      <li class="pl-item">
-        <span class="pl-tag">Heat</span>
-        <p class="pl-body"><strong>Sauna a few hours before bed</strong> — the drop in body temp afterwards triggers deep sleep faster. One of the most underrated tools.</p>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════════════════════════
-     THE STACK
-═════════════════════════════════════════════════════════════════════ -->
-<section class="stack">
-  <div class="container">
-    <header class="section-header">
-      <h2 class="section-title">The <em>stack.</em></h2>
-      <p class="section-lede">Everything I actually use. No fluff, no sponsored picks.</p>
-    </header>
-
-    <div class="stack-grid">
-      <article class="product-card">
-        <div class="product-name">Manta Sleep Mask Pro</div>
-        <p class="product-desc">Blocks 100% of light. The best sleep mask I've used.</p>
-        <a class="product-link" href="https://mantasleep.com.au/products/manta-sleep-mask-pro" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="product-card">
-        <div class="product-name">Eight Sleep Pod Cover</div>
-        <p class="product-desc">Temperature-controlled mattress cover. Game changer for deep sleep.</p>
-        <a class="product-link" href="https://www.eightsleep.com/au/" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="product-card">
-        <div class="product-name">Mouth Tape</div>
-        <p class="product-desc">Forces nasal breathing. Better oxygen, better sleep, less snoring.</p>
-        <a class="product-link" href="https://www.aliexpress.com/item/1005008135304014.html" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="product-card">
-        <div class="product-name">Devanti Air Purifier</div>
-        <p class="product-desc">Clean air in the bedroom. HEPA filtered.</p>
-        <a class="product-link" href="https://www.bunnings.com.au/devanti-air-purifier-4-stage-hepa-filter_p0762424" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="product-card">
-        <div class="product-name">Devanti Oscillating Fan</div>
-        <p class="product-desc">Airflow + white noise. I sleep with this on every night.</p>
-        <a class="product-link" href="https://www.amazon.com.au/Devanti-Electric-Oscillating-Speeds-Cooling/dp/B0DBH57CBD" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="product-card">
-        <div class="product-name">Pillar Triple Magnesium</div>
-        <p class="product-desc">Best magnesium I've found. Take it 30 mins before bed.</p>
-        <a class="product-link" href="https://www.paceathletic.com/products/pillar-performance-triple-magnesium" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="product-card">
-        <div class="product-name">True Protein Creatine</div>
-        <p class="product-desc">Creatine doesn't just help in the gym — supports cognitive recovery too.</p>
-        <a class="product-link" href="https://www.trueprotein.com.au/products/creatine-mono" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="product-card">
-        <div class="product-name">Sunrise Alarm Clock</div>
-        <p class="product-desc">Wakes you up with light instead of a blaring alarm. So much better.</p>
-        <a class="product-link" href="https://www.amazon.com.au/Sunrise-Simulation-Function-Colorful-Atmosphere/dp/B0CL6NNMTF" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
-
-      <article class="product-card">
-        <div class="product-name">WHOOP</div>
-        <p class="product-desc">Tracks sleep stages, HRV and recovery every single night.</p>
-        <a class="product-link" href="https://www.whoop.com/au/en/" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
-      </article>
+  <!-- Sticky Save-to-iPhone bar -->
+  <div class="save-bar">
+    <div class="save-bar-inner">
+      <span class="save-bar-label">The full guide</span>
+      <button type="button" class="save-btn" id="savePdfBtn" aria-label="Save the guide to your iPhone Files">
+        📥 Save to iPhone
+      </button>
     </div>
   </div>
-</section>
 
-<!-- ════════════════════════════════════════════════════════════════════
-     EMAIL CAPTURE
-═════════════════════════════════════════════════════════════════════ -->
-<section class="capture" id="getguide">
-  <div class="container">
-    <h2 class="capture-title">Get the full<br/>sleep guide.</h2>
-    <p class="capture-sub">
-      Drop your email and I'll send you the complete breakdown — the stack, the protocol, and the science. Free.
-    </p>
-
-    <form
-      id="sleepGuideForm"
-      name="sleep-guide"
-      method="POST"
-      action="/?submitted=1"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-      novalidate
-    >
-      <input type="hidden" name="form-name" value="sleep-guide" />
-      <p class="hp"><label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-
-      <div class="form-grid">
-        <div class="form-field">
-          <label class="form-label" for="firstName">First name</label>
-          <input class="form-input" id="firstName" name="first_name" type="text" autocomplete="given-name" required maxlength="80" />
+  <!-- ── STATS STRIP ───────────────────────────────────────────────── -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-num">40%</div>
+          <div class="stat-text">Drop in reaction time after one bad night.</div>
         </div>
-        <div class="form-field">
-          <label class="form-label" for="email">Email</label>
-          <input class="form-input" id="email" name="email" type="email" autocomplete="email" required maxlength="200" />
+        <div class="stat-card">
+          <div class="stat-num">24%</div>
+          <div class="stat-text">Reduction in sprint speed after 5 nights of less than 6 hours.</div>
         </div>
-        <div class="submit-cell">
-          <button type="submit" class="form-submit" id="formSubmitBtn">
-            <span>Send Me the Guide</span>
-            <span aria-hidden="true">→</span>
-          </button>
+        <div class="stat-card">
+          <div class="stat-num">3×</div>
+          <div class="stat-text">Higher injury risk on poor sleep.</div>
         </div>
       </div>
-
-      <div class="form-error" id="formError">Something went wrong. Please try again.</div>
-      <p class="form-foot">No spam. Unsubscribe any time.</p>
-    </form>
-
-    <div class="form-success" id="formSuccess" role="status" aria-live="polite">
-      <strong>You're in.</strong> Check your inbox in the next minute — the guide is on its way. 🛌
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- ── BODY ON LESS THAN 6 HOURS ─────────────────────────────────── -->
+  <section class="body-section">
+    <div class="container">
+      <header class="section-header">
+        <h2 class="section-title">Your body on<br/><em>less than 6 hours.</em></h2>
+        <p class="section-lede">You feel "fine." You're not. Here's what's actually happening under the hood.</p>
+      </header>
+
+      <ol class="ol-symptoms">
+        <li><strong>Reaction time drops</strong> — you feel fine but your brain is slower than a drunk driver.</li>
+        <li><strong>Testosterone drops 10–15%</strong> after just one week of poor sleep.</li>
+        <li><strong>Cortisol spikes</strong> — you're in survival mode all day, muscle breaks down.</li>
+        <li><strong>Decision-making tanks</strong> — the part of your brain that plans ahead basically switches off.</li>
+        <li><strong>Recovery stalls</strong> — HGH is released during deep sleep. No deep sleep, no repair.</li>
+        <li><strong>Appetite hormones go haywire</strong> — ghrelin spikes, you crave junk all day.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── ZAC'S PROTOCOL ────────────────────────────────────────────── -->
+  <section class="protocol">
+    <div class="container">
+      <header class="section-header">
+        <h2 class="section-title">How I actually<br/><em>prioritise sleep.</em></h2>
+        <p class="section-lede">This is the stack and the rituals. Nothing fancy — just stuff that compounds when you do it every day.</p>
+      </header>
+
+      <ul class="protocol-list">
+        <li class="pl-item">
+          <span class="pl-tag">Morning</span>
+          <p class="pl-body">Get outside within <strong>30–60 minutes of waking</strong>. Even 30 seconds of direct sunlight resets your circadian rhythm and tells your body it's daytime. <strong>No sunglasses.</strong></p>
+        </li>
+        <li class="pl-item">
+          <span class="pl-tag">Afternoon</span>
+          <p class="pl-body">Get sunlight in your eyes again in the <strong>late afternoon</strong> — this signals to your body that the day is ending and primes melatonin production for later.</p>
+        </li>
+        <li class="pl-item">
+          <span class="pl-tag">Evening</span>
+          <p class="pl-body">Dim or turn off all bright lights as early as possible before bed. <strong>Overhead lights are the enemy</strong> — switch to lamps and warm bulbs.</p>
+        </li>
+        <li class="pl-item">
+          <span class="pl-tag">Bedtime</span>
+          <p class="pl-body">Mouth tape on (forces nasal breathing — deeper sleep, better oxygen), white noise, fan running for airflow, room as cold as I can get it.</p>
+        </li>
+        <li class="pl-item">
+          <span class="pl-tag">Tech</span>
+          <p class="pl-body">The <strong>Eight Sleep pod</strong> tracks everything and keeps the bed at the exact temperature for deep sleep. It's the single biggest upgrade I've made.</p>
+        </li>
+        <li class="pl-item">
+          <span class="pl-tag">Supplements</span>
+          <p class="pl-body"><strong>Magnesium before bed</strong> — helps the nervous system wind down and improves sleep quality. I take a triple form (citrate / glycinate / aspartate).</p>
+        </li>
+        <li class="pl-item">
+          <span class="pl-tag">Heat</span>
+          <p class="pl-body"><strong>Sauna a few hours before bed</strong> — the drop in body temp afterwards triggers deep sleep faster. One of the most underrated tools.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── THE STACK ─────────────────────────────────────────────────── -->
+  <section class="stack">
+    <div class="container">
+      <header class="section-header">
+        <h2 class="section-title">The <em>stack.</em></h2>
+        <p class="section-lede">Everything I actually use. No fluff, no sponsored picks.</p>
+      </header>
+
+      <div class="stack-grid">
+        <article class="product-card">
+          <div class="product-name">Manta Sleep Mask Pro</div>
+          <p class="product-desc">Blocks 100% of light. The best sleep mask I've used.</p>
+          <a class="product-link" href="https://mantasleep.com.au/products/manta-sleep-mask-pro" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="product-card">
+          <div class="product-name">Eight Sleep Pod Cover</div>
+          <p class="product-desc">Temperature-controlled mattress cover. Game changer for deep sleep.</p>
+          <a class="product-link" href="https://www.eightsleep.com/au/" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="product-card">
+          <div class="product-name">Mouth Tape</div>
+          <p class="product-desc">Forces nasal breathing. Better oxygen, better sleep, less snoring.</p>
+          <a class="product-link" href="https://www.aliexpress.com/item/1005008135304014.html" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="product-card">
+          <div class="product-name">Devanti Air Purifier</div>
+          <p class="product-desc">Clean air in the bedroom. HEPA filtered.</p>
+          <a class="product-link" href="https://www.bunnings.com.au/devanti-air-purifier-4-stage-hepa-filter_p0762424" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="product-card">
+          <div class="product-name">Devanti Oscillating Fan</div>
+          <p class="product-desc">Airflow + white noise. I sleep with this on every night.</p>
+          <a class="product-link" href="https://www.amazon.com.au/Devanti-Electric-Oscillating-Speeds-Cooling/dp/B0DBH57CBD" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="product-card">
+          <div class="product-name">Pillar Triple Magnesium</div>
+          <p class="product-desc">Best magnesium I've found. Take it 30 mins before bed.</p>
+          <a class="product-link" href="https://www.paceathletic.com/products/pillar-performance-triple-magnesium" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="product-card">
+          <div class="product-name">True Protein Creatine</div>
+          <p class="product-desc">Creatine doesn't just help in the gym — supports cognitive recovery too.</p>
+          <a class="product-link" href="https://www.trueprotein.com.au/products/creatine-mono" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="product-card">
+          <div class="product-name">Sunrise Alarm Clock</div>
+          <p class="product-desc">Wakes you up with light instead of a blaring alarm. So much better.</p>
+          <a class="product-link" href="https://www.amazon.com.au/Sunrise-Simulation-Function-Colorful-Atmosphere/dp/B0CL6NNMTF" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+
+        <article class="product-card">
+          <div class="product-name">WHOOP</div>
+          <p class="product-desc">Tracks sleep stages, HRV and recovery every single night.</p>
+          <a class="product-link" href="https://www.whoop.com/au/en/" target="_blank" rel="noopener noreferrer">Get it <span aria-hidden="true">→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /#gatedContent -->
 
 <!-- ════════════════════════════════════════════════════════════════════
      FOOTER
@@ -771,16 +928,18 @@
 </footer>
 
 <!-- ════════════════════════════════════════════════════════════════════
-     SCRIPT — Form submit (keeps the user on-page after Netlify ack)
+     SCRIPT
 ═════════════════════════════════════════════════════════════════════ -->
 <script>
   (function () {
+    const UNLOCK_KEY = 'zac-sleep-guide-unlocked';
     const form    = document.getElementById('sleepGuideForm');
-    const btn     = document.getElementById('formSubmitBtn');
-    const success = document.getElementById('formSuccess');
-    const error   = document.getElementById('formError');
-
-    if (!form) return;
+    const card    = document.getElementById('gateCard');
+    const success = document.getElementById('gateSuccess');
+    const gated   = document.getElementById('gatedContent');
+    const btn     = document.getElementById('gateSubmitBtn');
+    const error   = document.getElementById('gateError');
+    const saveBtn = document.getElementById('savePdfBtn');
 
     function encode(data) {
       return Object.keys(data)
@@ -788,40 +947,87 @@
         .join('&');
     }
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      error.classList.remove('show');
-
-      const fd = new FormData(form);
-      const payload = {};
-      fd.forEach((v, k) => { payload[k] = v; });
-
-      btn.disabled = true;
-      const original = btn.innerHTML;
-      btn.innerHTML = '<span>Sending…</span>';
-
-      try {
-        const resp = await fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encode(payload),
-        });
-        if (!resp.ok) throw new Error('Network error: ' + resp.status);
-        form.style.display = 'none';
-        success.classList.add('show');
-        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } catch (err) {
-        console.error('[sleep-guide form] submit failed', err);
-        error.classList.add('show');
-        btn.disabled = false;
-        btn.innerHTML = original;
+    function reveal({ instant = false } = {}) {
+      gated.style.display = 'block';
+      // Force a reflow so the transition runs
+      // eslint-disable-next-line no-unused-expressions
+      gated.offsetHeight;
+      requestAnimationFrame(() => gated.classList.add('revealed'));
+      if (instant) {
+        gated.style.transition = 'none';
+        gated.classList.add('revealed');
       }
-    });
+    }
 
-    // Show success state if user lands on /?submitted=1 (no-JS fallback path)
-    if (new URLSearchParams(window.location.search).get('submitted') === '1') {
-      form.style.display = 'none';
+    function showSuccess() {
+      card.style.display = 'none';
       success.classList.add('show');
+    }
+
+    // 1. Returning visitor — skip the gate.
+    let alreadyUnlocked = false;
+    try { alreadyUnlocked = localStorage.getItem(UNLOCK_KEY) === '1'; } catch (e) { /* private mode etc. */ }
+
+    if (alreadyUnlocked) {
+      // Hide the gate section entirely (form + card), reveal content.
+      const gateSection = document.getElementById('getguide');
+      if (gateSection) gateSection.style.display = 'none';
+      reveal({ instant: true });
+    }
+
+    // 2. Form submit handler — POSTs to Netlify Forms, reveals content on success.
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        error.classList.remove('show');
+
+        const fd = new FormData(form);
+        const payload = {};
+        fd.forEach((v, k) => { payload[k] = v; });
+
+        btn.disabled = true;
+        const original = btn.innerHTML;
+        btn.innerHTML = '<span>Sending…</span>';
+
+        try {
+          const resp = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(payload),
+          });
+          if (!resp.ok) throw new Error('Network error: ' + resp.status);
+
+          try { localStorage.setItem(UNLOCK_KEY, '1'); } catch (e) { /* ignore */ }
+
+          showSuccess();
+          reveal();
+
+          // Give the user a beat to read "You're in." before scrolling them down.
+          setTimeout(() => {
+            gated.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 900);
+        } catch (err) {
+          console.error('[sleep-guide form] submit failed', err);
+          error.classList.add('show');
+          btn.disabled = false;
+          btn.innerHTML = original;
+        }
+      });
+    }
+
+    // 3. No-JS fallback — if Netlify redirected to /?submitted=1, treat as success.
+    if (new URLSearchParams(window.location.search).get('submitted') === '1') {
+      try { localStorage.setItem(UNLOCK_KEY, '1'); } catch (e) { /* ignore */ }
+      showSuccess();
+      reveal({ instant: true });
+    }
+
+    // 4. Save to iPhone — opens iOS share sheet via the print dialog,
+    // which lets the user pick "Save to Files" / "Save as PDF".
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        try { window.print(); } catch (e) { console.warn('print failed', e); }
+      });
     }
   })();
 </script>
