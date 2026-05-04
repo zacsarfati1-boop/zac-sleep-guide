@@ -977,11 +977,20 @@
       reveal({ instant: true });
     }
 
-    // 2. Form submit handler — POSTs to Netlify Forms, reveals content on success.
+    // 2. Form submit handler — POSTs to Netlify Forms.
+    //    Content is only revealed once the submission is accepted, so every
+    //    visitor's email is captured into the Netlify Forms inbox.
     if (form) {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         error.classList.remove('show');
+
+        const emailInput = document.getElementById('email');
+        const nameInput = document.getElementById('firstName');
+        if (!form.checkValidity() || !emailInput.value.trim() || !nameInput.value.trim()) {
+          form.reportValidity();
+          return;
+        }
 
         const fd = new FormData(form);
         const payload = {};
@@ -991,23 +1000,31 @@
         const original = btn.innerHTML;
         btn.innerHTML = '<span>Sending…</span>';
 
-        // Always reveal content — email capture is best-effort.
-        // Fire the Netlify form POST in the background without blocking access.
-        fetch('/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encode(payload),
-        }).catch(() => { /* silent — user still gets access */ });
+        try {
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(payload),
+          });
 
-        try { localStorage.setItem(UNLOCK_KEY, '1'); } catch (e) { /* ignore */ }
+          if (!response.ok) {
+            throw new Error('Submission failed: ' + response.status);
+          }
 
-        showSuccess();
-        reveal();
+          try { localStorage.setItem(UNLOCK_KEY, '1'); } catch (err) { /* ignore */ }
 
-        // Give the user a beat to read "You're in." before scrolling them down.
-        setTimeout(() => {
-          gated.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 900);
+          showSuccess();
+          reveal();
+
+          setTimeout(() => {
+            gated.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 900);
+        } catch (err) {
+          error.textContent = 'Something went wrong. Please check your connection and try again.';
+          error.classList.add('show');
+          btn.disabled = false;
+          btn.innerHTML = original;
+        }
       });
     }
 
