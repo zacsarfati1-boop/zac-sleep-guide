@@ -766,8 +766,8 @@
   <div class="save-bar">
     <div class="save-bar-inner">
       <span class="save-bar-label">The full guide</span>
-      <button type="button" class="save-btn" id="savePdfBtn" aria-label="Save the guide to your iPhone Files">
-        📥 Save to iPhone
+      <button type="button" class="save-btn" id="savePdfBtn" aria-label="Save the guide to Files">
+        📥 Save to Files
       </button>
     </div>
   </div>
@@ -935,6 +935,13 @@
 <script>
   (function () {
     const UNLOCK_KEY = 'zac-sleep-guide-unlocked';
+
+    // Dev/QA helper: visiting /?reset=1 clears the unlock flag so the gate
+    // re-appears for testing. Runs before the alreadyUnlocked check.
+    if (new URLSearchParams(window.location.search).get('reset') === '1') {
+      try { localStorage.removeItem(UNLOCK_KEY); } catch (e) { /* ignore */ }
+    }
+
     const form    = document.getElementById('sleepGuideForm');
     const card    = document.getElementById('gateCard');
     const success = document.getElementById('gateSuccess');
@@ -1051,5 +1058,19 @@
     }
   })();
 </script>
+
+<!--
+  Hidden duplicate of the gate form. Netlify scans static HTML at build time
+  to register form schemas; the live form lives inside #gatedContent which
+  starts hidden, and the JS-driven submit can also obscure it from the
+  parser. This static stub guarantees Netlify always picks up the
+  "sleep-guide" form name + fields.
+-->
+<form name="sleep-guide" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="hidden" name="form-name" value="sleep-guide" />
+  <input name="first_name" type="text" />
+  <input name="email" type="email" />
+  <input name="bot-field" />
+</form>
 </body>
 </html>
