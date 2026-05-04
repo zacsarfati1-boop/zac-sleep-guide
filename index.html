@@ -991,29 +991,23 @@
         const original = btn.innerHTML;
         btn.innerHTML = '<span>Sending…</span>';
 
-        try {
-          const resp = await fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: encode(payload),
-          });
-          if (!resp.ok) throw new Error('Network error: ' + resp.status);
+        // Always reveal content — email capture is best-effort.
+        // Fire the Netlify form POST in the background without blocking access.
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: encode(payload),
+        }).catch(() => { /* silent — user still gets access */ });
 
-          try { localStorage.setItem(UNLOCK_KEY, '1'); } catch (e) { /* ignore */ }
+        try { localStorage.setItem(UNLOCK_KEY, '1'); } catch (e) { /* ignore */ }
 
-          showSuccess();
-          reveal();
+        showSuccess();
+        reveal();
 
-          // Give the user a beat to read "You're in." before scrolling them down.
-          setTimeout(() => {
-            gated.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }, 900);
-        } catch (err) {
-          console.error('[sleep-guide form] submit failed', err);
-          error.classList.add('show');
-          btn.disabled = false;
-          btn.innerHTML = original;
-        }
+        // Give the user a beat to read "You're in." before scrolling them down.
+        setTimeout(() => {
+          gated.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 900);
       });
     }
 
